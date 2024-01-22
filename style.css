@@ -1,0 +1,441 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@1,500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+i,svg {
+    pointer-events: none;
+}
+
+/**Color Palette */
+.colors {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    min-height: 80vh;
+    height: 80%;
+}
+
+.color {
+    position: relative;
+    height: 80vh;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    overflow: hidden;
+    /* margin: 1rem 3.4rem; */
+}
+
+.color h2 {
+    font-size: 2.2rem;
+    color: #f6f6f6;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+}
+
+/** Control Buttons */
+.adjust-btn, 
+.lock-btn {
+    font-size: 2rem;
+    cursor: pointer;
+    margin: 2rem 0rem;
+    background: none;
+    border: none;
+    transition: all 0.5s ease-in-out;
+}
+
+.adjust-btn:hover, 
+.lock-btn:hover {
+    color: rgb(72, 77, 146);
+}
+
+/** Color Sliders */
+.sliders {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0%;
+    background: #fff;
+    padding: 1rem;
+    width: 80%;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+    pointer-events: none;
+    opacity: 0;
+    /** For the transition */
+    transform: translateY(100px);
+    transition: all 0.5s ease-in-out;
+}
+
+.sliders.active {
+    pointer-events: all;
+    transform: translateY(0px);
+    opacity: 1;
+}
+
+.sliders span {
+    font-size: 1rem;
+    text-align: start;
+    font-weight: bold;
+}
+
+.sliders input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    margin: 1rem 0rem;
+    position: relative;
+    border-radius: 1rem;
+    cursor: pointer;
+}
+
+.close-sliders {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.6rem;
+    margin: 0.3rem 0.5rem;
+    border-radius: 2rem;
+    border: none;
+    background: rgb(109, 109, 109);
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-sliders:hover {
+    color: #f4f4f4;
+    background: #080404;
+    /* font-weight: 800; */
+}
+
+/** Panel */
+.panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 2rem 0rem;
+}
+
+.panel button{
+    border: none;
+    font-size: 1.6rem;
+    background: rgb(31, 33, 63);
+    color: #fff;
+    padding: 0.8rem 1.5rem;
+    border-radius: 1rem;
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+.panel button:hover {
+    background: #fff;
+    color: rgb(31, 33, 63);
+}
+
+.panel p {
+    text-align: center;
+    font-size: 1.3rem;
+    padding: 0.6rem 0;
+}
+
+/** Copy, Save & Library */
+.copy-container, 
+.save-container, 
+.library-container {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    /** For Transition */
+    opacity: 0;
+    transition: all 0.7s ease;
+}
+
+.copy-container.active, 
+.save-container.active, 
+.library-container.active {
+    pointer-events: all;
+    opacity: 1;
+}
+
+.copy-popup, 
+.save-popup, 
+.library-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    min-width: 28%;
+    min-height: 28vh;
+    background-color: #fff;
+    align-items: center;
+    border-radius: 1rem;
+    transform: translateY(-2rem);
+    transition: transform 0.7s ease;
+}
+
+.copy-popup.active {
+    transform: translateY(0rem);
+}
+
+.copy-popup h4, 
+.save-popup h4, 
+.library-popup h4 {
+    font-size: 1.46rem;
+    padding: 1rem;
+}
+
+/** Close buttons for Save & Library popups */
+.close-save, 
+.close-library {
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    padding: 0.6rem;
+    margin: 0.3rem 0.5rem;
+    border-radius: 2rem;
+    border: none;
+    background: rgb(104, 104, 104);
+    color: #fff;
+    font-size: 0.8rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.close-save:hover, 
+.close-library:hover {
+    color: #fff;
+    background: rgb(2, 2, 2);
+}
+
+/** Input for Save Popup */
+.save-input {
+    width: 70%;
+    height: 100%;
+    padding: 0.8rem;
+    font-size: 1.5rem;
+}
+
+/** Submit Button for Save popup */
+.submit-save {
+    margin: 1.3rem 0;
+    padding: 1rem 1.3rem;
+    font-size: 1.3rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: rgb(31, 33, 63);
+    color: #fff;
+    border-radius: 1rem;
+    font-weight: bold;
+    transition: all 0.5s ease-in-out;
+}
+
+.submit-save:hover {
+    background: rgb(24, 24, 24);
+    color: #fff;
+}
+
+/** Library popup individual style */
+.library-popup {
+    min-width: 40%;
+    padding: 1rem;
+    justify-content: flex-start;
+    overflow-y: scroll;
+    max-height: 50vh;
+    border-top-left-radius: 1rem !important;
+    border-bottom-left-radius: 1rem !important;
+    position: relative;
+}
+
+.palette-container {
+    min-width: 90%;
+    opacity: 1;
+    margin: 3rem 0rem;
+}
+
+.custom-palette{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 0rem;
+    margin: 1.5rem 0rem;
+}
+
+.small-preview {
+    display: flex;
+    flex: 1;
+}
+
+.custom-palette h4 {
+    flex: 1;
+}
+
+.small-preview div {
+    height: 5rem;
+    flex: 1;
+}
+
+/** Another style for the buttons */
+.clear-library {
+    padding: 0.7rem 0.9rem;
+    margin: 0rem 0.7rem;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background: rgb(70, 74, 122);
+    color: #fff;
+    border-radius: 1rem;
+    font-weight: bold;
+    transition: all 0.5s ease-in-out;
+    position: absolute;
+    top: 18%;
+    left: 80%;
+}
+
+.clear-library:hover{
+    background: rgb(0, 0, 0);
+    color: #fff;
+    font-weight: bold;
+}
+
+.pick-palette-btn {
+    height: 5rem;
+    padding: 1.3rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1.2rem;
+    background-color: rgb(41, 41, 41);
+    color: #fff;
+}
+.pick-palette-btn:hover {
+    background-color: rgb(114, 107, 107);
+    color: #000;
+    font-weight: bold;
+}
+
+/* .delete-palette-btn {
+    height: 5rem;
+    padding: 1rem;
+    cursor: pointer;
+    border: none;
+    font-size: 1.2rem;
+    background-color: rgb(139, 139, 139); 
+    color: #fff;
+} */
+
+/* .delete-palette-btn:hover {
+    background-color: rgb(22, 22, 22);
+    color: #fff;
+} */
+
+/** Media Query */
+@media only screen and (max-width: 600px) {
+    .color {
+        min-width: 100%;
+    }
+
+    .colors {
+        flex-direction: column;
+        min-width: 100%;
+    }
+    
+    .sliders {
+        width: 60%;
+        padding: 0.8rem;
+    }
+
+    .sliders input[type="range"] {
+        -webkit-appearance: none;
+        width: 100%;
+        margin: 0.7rem 0rem;
+    }
+
+    .close-sliders {
+        padding: 0.5rem;
+        
+    }
+
+    .copy-container, 
+    .save-container, 
+    .library-container {
+        min-width: 100%;
+        min-height: 100%;
+    }
+
+    .library-popup {
+        overflow-x: scroll;
+
+    }
+
+    .close-save, 
+    .close-library {
+        position: absolute;
+        top: 0%;
+        right: 0%;
+        padding: 0.5rem;
+        margin: 0.3rem 0.3rem;
+        font-size: 0.7rem;
+    } 
+    
+    .close-library {
+        position: absolute;
+        top: 0%;
+        right: -57%;
+    }
+
+    .clear-library {
+        padding: 0.6rem 0.7rem;
+        margin: 0rem 0.7rem;
+        font-size: 0.9rem;
+        position: absolute;
+        top: 18%;
+        left: 130%;
+    }
+    .palette-container {
+        min-width: 100%;
+        opacity: 1;
+        margin: 4rem 5.8rem;
+    }
+    
+    .custom-palette{
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 140%;
+        padding: 0rem;
+        margin: 1.5rem 0rem;
+    }
+
+    .pick-palette-btn {
+        height: 5rem;
+        padding: 0.9rem;
+        font-size: 0.9rem;
+    }
+
+    .generate-panel p, 
+    .library-panel p,
+    .save-panel p {
+        font-size: 1.1rem;
+    }
+}
